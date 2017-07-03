@@ -26,8 +26,8 @@ function Vehicle(x,y){
     };
 
     this.behivour  = function(good,bad){
-        var steerG = this.eat(good , 0.1,dna[2]);
-        var steerB = this.eat(bad , -0.1,dna[3]);
+        var steerG = this.eat(good , 0.1,this.dna[2]);
+        var steerB = this.eat(bad , -0.1,this.dna[3]);
 
         steerG.mult(this.dna[0]);
         steerB.mult(this.dna[1]);
@@ -128,14 +128,16 @@ function Vehicle(x,y){
         translate(this.position.x,this.position.y);
         rotate(angle);
 
-        stroke(0,255,0);
-        noFill();
-        line(0,0,0,-this.dna[0]*20);
-        ellipse(0,0,this.dna[2]*2);
-        stroke(255,0,0);
-        line(0,0,0,-this.dna[1]*20);
-        ellipse(0,0,this.dna[3]*2);
-
+        //If in debugging mode
+        if(checkbox.checked()){
+            stroke(0,255,0);
+            noFill();
+            line(0,0,0,-this.dna[0]*20);
+            ellipse(0,0,this.dna[2]*2);
+            stroke(255,0,0);
+            line(0,0,0,-this.dna[1]*20);
+            ellipse(0,0,this.dna[3]*2);
+        }
         var red = color(255,0,0);
         var green = color(0,255,0);
         var col = lerpColor(red,green,this.health);

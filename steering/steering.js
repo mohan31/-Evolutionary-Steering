@@ -1,23 +1,18 @@
 var vehicles = [];
 var food = [];
 var poison = [];
+
+var checked = false;
 function setup(){
     createCanvas(600,400);
-    for(var i = 0; i<10; i++){
-        var x = random(width);
-        var y = random(height);
-        vehicles[i] = new Vehicle(x,y);
-    }
-    for(var i=0; i < 40; i++){
-        var x = random(width);
-        var y = random(height);
-        food.push(createVector(x,y));
-    }
-    for(var i=0; i < 10; i++){
-        var x = random(width);
-        var y = random(height);
-        poison.push(createVector(x,y));
-    }
+    play();
+
+    checkbox = createCheckbox('Debugging', false);
+    createElement("br");
+    createElement("br");
+    btn = createButton("play again");
+    btn.mousePressed(play);
+
 }
 
 function draw(){
@@ -51,8 +46,15 @@ function draw(){
         noStroke();
         ellipse(poison[i].x,poison[i].y,5,5);
     }
-
+    //console.log(vehicles.length);
+    if(vehicles.length == 1){
+        noLoop();
+        checked = true;
+        //console.log("stoprd");
+    }
     for(var i=vehicles.length-1; i>0; i--){
+
+
         vehicles[i].boundaries();
         vehicles[i].behivour(food,poison);
         //vehicle.seek(target);
@@ -62,9 +64,30 @@ function draw(){
         if(vehicles[i].dead()){
             vehicles.splice(i,1);
         }
+
+    }
+}
+
+function play(){
+    for(var i = 0; i<10; i++){
+        var x = random(width);
+        var y = random(height);
+        vehicles[i] = new Vehicle(x,y);
+    }
+    for(var i=0; i < 40; i++){
+        var x = random(width);
+        var y = random(height);
+        food.push(createVector(x,y));
+    }
+    for(var i=0; i < 10; i++){
+        var x = random(width);
+        var y = random(height);
+        poison.push(createVector(x,y));
     }
 
-
+    if(checked){
+        loop();
+    }
 
 
 }
